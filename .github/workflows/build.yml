@@ -44,6 +44,10 @@ jobs:
       - name: Prepare
         run: |
           ./prepare.sh
+      - name: Run prepare.sh
+        run: |
+          chmod +x prepare.sh
+          ./prepare.sh
       - name: Cache OpenWrt dl and toolchain
         uses: actions/cache@v3
         if: always()
@@ -53,10 +57,6 @@ jobs:
             lede/staging_dir
 #            lede/build_dir
           key: ${{ runner.os }}-openwrt-${{ hashFiles('lede/feeds.conf.default', 'xgp.config') }}
-      - name: Run prepare.sh
-        run: |
-          chmod +x prepare.sh
-          ./prepare.sh
       - name: Build
         run: |
           ./build.sh
