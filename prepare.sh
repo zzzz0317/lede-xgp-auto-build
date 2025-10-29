@@ -49,3 +49,6 @@ if [ -d "package/zz/xgp-v3-screen" ]; then
 else
     git clone https://github.com/zzzz0317/xgp-v3-screen.git package/zz/xgp-v3-screen || { echo "xgp-v3-screen git clone failed"; exit 1; }
 fi
+echo ">>> 添加 Lucky 插件 ..."
+rm -rf package/lucky
+git clone https://github.com/gdy666/lucky.git package/lucky
