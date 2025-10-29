@@ -5,7 +5,7 @@ if test $is_first_boot -gt 0; then
 uci set system.@system[0].hostname='zzXGP'
 uci commit system
 uci del dhcp.lan.ra_slaac
-uci set network.lan.ipaddr='10.0.0.1'
+uci set network.lan.ipaddr='10.0.11.1'
 uci add_list network.lan.ip6class='mpcie1v6'
 uci add_list network.lan.ip6class='mpcie2v6'
 uci add_list network.lan.ip6class='wwanv6'
