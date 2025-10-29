@@ -1,7 +1,8 @@
 #!/bin/bash
 # ======================================================
-#  prepare.sh —— 构建前准备脚本（适配 ARM64 + Lucky + EasyTier）
-#  适配: qsyrw/lede-xgp-auto-build
+#  prepare.sh —— 构建前准备脚本
+#  适配: qsyrw/lede-xgp-auto-build (ARM64)
+#  插件集成: Lucky + EasyTier + Tailscale
 # ======================================================
 
 set -e
@@ -9,7 +10,7 @@ set -e
 echo "🚀 开始执行 prepare.sh —— 准备 LEDE 构建环境 (ARM64 设备)"
 
 # -------------------------------
-# 检查环境
+# 环境检查
 # -------------------------------
 if [ ! -d "scripts" ] || [ ! -f "feeds.conf.default" ]; then
     echo "❌ 请在 OpenWrt/LEDE 源码根目录中执行此脚本!"
@@ -63,17 +64,22 @@ rm -rf package/luci-app-easytier
 git clone https://github.com/EasyTier/luci-app-easytier.git package/luci-app-easytier
 
 # -------------------------------
-# 打印成功提示
+# 添加 Tailscale 插件
 # -------------------------------
-echo "✅ 插件添加完成！"
+echo "🔒 添加 Tailscale 插件"
+rm -rf package/luci-app-tailscale
+git clone https://github.com/zzsj0928/luci-app-tailscale.git package/luci-app-tailscale
 
-echo "🎯 你现在可以运行以下命令："
-echo "   make menuconfig"
-echo "   （或 ./build.sh 自动构建）"
+# -------------------------------
+# 打印提示
+# -------------------------------
+echo "✅ 所有插件已成功添加！"
 echo
-echo "在菜单中启用以下插件："
+echo "🎯 可在 menuconfig 中找到以下插件："
 echo "   LuCI → Applications → luci-app-lucky"
 echo "   LuCI → Applications → luci-app-easytier"
+echo "   LuCI → Applications → luci-app-tailscale"
 echo
-echo "👉 ARM64 编译将自动选择 aarch64 目标（如 Rockchip / Amlogic / ARMv8）"
+echo "👉 ARM64 架构将自动匹配对应目标 (如 Rockchip/Amlogic ARMv8)"
+echo "👉 运行 make menuconfig 选择目标后执行 make -j\$(nproc) V=s"
 echo
