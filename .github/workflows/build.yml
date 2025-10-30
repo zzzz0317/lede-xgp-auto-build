@@ -42,9 +42,6 @@ jobs:
         run: |
           sudo ./install-env.sh
       - name: Run prepare.sh
-        run: |
-          chmod +x prepare2.sh
-          ./prepare2.sh
       - name: Prepare
         run: |
           ./prepare.sh
