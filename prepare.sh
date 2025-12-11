@@ -4,15 +4,15 @@ df -h
 free -h
 cat /proc/cpuinfo
 
-if [ -d "lede" ]; then
+if [ -d "immortalwrt-xgp" ]; then
     echo "repo dir exists"
-    cd lede
+    cd immortalwrt-xgp
     git reset --hard
     git pull || { echo "git pull failed"; exit 1; }
 else
     echo "repo dir not exists"
-    git clone "https://github.com/coolsnowwolf/lede.git" || { echo "git clone failed"; exit 1; }
-    cd lede
+    git clone -b bk-20251024 "https://github.com/940842546/immortalwrt-xgp.git" || { echo "git clone failed"; exit 1; }
+    cd immortalwrt-xgp
 fi
 
 cat feeds.conf.default > feeds.conf
@@ -31,7 +31,7 @@ src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main
 src-git bandixipk https://github.com/timsaya/openwrt-bandix.git
 EOF
 
-#echo "src-git qmodem https://github.com/zzzz0317/QModem.git;stable202508" >> feeds.conf
+
 rm -rf files
 cp -r ../files .
 if [ -d "package/zz/luci-app-argon-config" ]; then
